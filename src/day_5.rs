@@ -1,5 +1,9 @@
 use std::collections::HashMap;
 
+/******************************************************************************
+ *                                  PROBLEM 1                                 *
+ ******************************************************************************/
+
 pub fn prob5_1(input: &str) {
     let (rules, updates) = parse_input(input);
     let sum = validate_updates(rules, updates);
@@ -70,6 +74,57 @@ fn validate_updates(
         }
 
         middle_page_sum += update[update.len() / 2] as u64;
+    }
+
+    middle_page_sum
+}
+
+/******************************************************************************
+ *                                  PROBLEM 2                                 *
+ ******************************************************************************/
+
+pub fn prob5_2(input: &str) {
+    let (rules, updates) = parse_input(input);
+    let sum = validate_and_correct(rules, updates);
+
+    println!("[5:2] Sum after corrections: {}", sum);
+}
+
+fn validate_and_correct(
+    rules: HashMap<u8, PrintRules>,
+    updates: Vec<Vec<u8>>
+) -> u64 {
+    let mut middle_page_sum = 0_u64;
+
+    for mut update in updates {
+        let mut first_loop = true;
+        loop {
+            let mut swapped = false;
+            for i in 0..update.len() {
+                let Some(rules) = rules.get(&update[i]) else {
+                    continue;
+                };
+                let no_after = &rules.no_after;                
+                for j in (i + 1)..update.len() {
+                    if no_after.contains(&update[j]) {
+                        update.swap(i, j);
+                        swapped = true;
+                    }
+                }
+            }
+
+            // no swaps means the update is valid:
+            if !swapped {
+                break;
+            }
+
+            first_loop = false;
+        }
+
+        // we only want the sum from previously incorrect updates
+        if !first_loop {
+            middle_page_sum += update[update.len() / 2] as u64;
+        }
     }
 
     middle_page_sum
