@@ -5,6 +5,7 @@ mod day_2;
 mod day_3;
 mod day_4;
 mod day_5;
+mod day_6;
 
 #[derive(clap::Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -33,6 +34,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         (4, 2) => { day_4::prob4_2(&read_to_string("input/4.txt")?); },
         (5, 1) => { day_5::prob5_1(&read_to_string("input/5.txt")?); },
         (5, 2) => { day_5::prob5_2(&read_to_string("input/5.txt")?); },
+        (6, 1) => { day_6::prob6_1(&read_to_string("input/6.txt")?); },
         _ => { println!("Invalid day and problem received. Exiting..."); }
     }
 
