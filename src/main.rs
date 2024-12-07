@@ -35,6 +35,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         (5, 1) => { day_5::prob5_1(&read_to_string("input/5.txt")?); },
         (5, 2) => { day_5::prob5_2(&read_to_string("input/5.txt")?); },
         (6, 1) => { day_6::prob6_1(&read_to_string("input/6.txt")?); },
+        (6, 2) => { day_6::prob6_2(&read_to_string("input/6.txt")?); },
         _ => { println!("Invalid day and problem received. Exiting..."); }
     }
 
